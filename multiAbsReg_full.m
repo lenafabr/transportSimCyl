@@ -1,5 +1,5 @@
 function [mfpt,Pnode,Qnode,Pedge,Qedge] = multiAbsReg_full(xvals,ka,D,startunif,domrefbound,...
-																							getTimetoSoma,vel,startstate)
+																							getTimetoSoma,vel,options)
 % find mean first passage time to absorbance in a region
 % reflecting boundary at 0
 % reflecting or absorbing boundary at xvals(end)
@@ -7,16 +7,13 @@ function [mfpt,Pnode,Qnode,Pedge,Qedge] = multiAbsReg_full(xvals,ka,D,startunif,
 % starting state can be specified as an optional input
 % xvals (N-dim vector) divides the region into N edges
 % ka (N-dim vector) provides the absorbance within each edge
-	arguments
-		xvals (1,:) double;
-		ka (1,:) double;
-		D (1,1) double = 1;
-		startunif (1,1) logical = false;
-		domrefbound (1,1) logical = false;
-		getTimetoSoma (1,1) logical = false;
-		vel (1,1) double = 1;
-		startstate (1,:) double = 0;
-	end
+opt = struct();
+% initial particle distribution
+opt.startstate = 0;
+
+if(exist('options','var')); opt = copyStruct(options,opt); end
+startstate = opt.startstate;
+
 
 nstate = length(xvals);
 if(size(xvals,1)~=1); xvals = xvals'; end

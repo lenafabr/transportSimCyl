@@ -5,13 +5,15 @@ ACTION PARTCAPTURE
 NSTEPS 1D6
 
 # number of particles
-NPART 1001
+NPART 101
 
 # number of microtubules
 NMT 5
 
 # number of trials
-NTRIALS 1000
+# if READLENS is set, each trial will read MT configurations from MTLENFILE
+# MTLENFILE must contain at least NTRIALS configurations
+NTRIALS 100
 
 # particle velocity
 VEL 1D0
@@ -44,13 +46,17 @@ CRAD 0.2D0
 # (only for dynamic MTs)
 # which states can capture MTs 
 # 1 = all states
-# 
+# 2 = only bind to growing or paused MTs
+# 3 = only bind to paused MTs
 CAPTUREINSTATE 1
 
 # stop on capture?
 # setting this to F enables cargo to travel to the cell body (requires ABSBOUND T)
 STOPONCAPTURE T
+
 # read MT lengths from file?
+# setting this to T will read MT configurations from MTLENFILE
+# MTLENFILE must contain at least NTRIALS configurations
 READLENS T
 
 # time step
@@ -66,12 +72,17 @@ ABSBOUND T
 # where to save snapshots
 # second argument determines how often snapshots are saved (0 indicates no save)
 SNAPSHOTS 0 *.snap.out
+
 # where to save fpt distribution
 FPT *.fpt.out
+
 # where to save binding position distribution
-# BINDPOS *.bindpos.out
+BINDPOS *.bindpos.out
+
 # read MT lengths from file?
 MTLENFILE mtlengths.txt
+
 # print simulation status to console
 # -1 prints a total of 10 updates
 # can be change to print more or less frequently
+PRINTEVERY 1000

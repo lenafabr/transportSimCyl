@@ -16,8 +16,13 @@ vel = vreal*(tau/domlenreal); % dimensionless velocity
 %% read microtubule lengths from file
 % other microtubule configurations can also be specified here
 % format: nmt x nconfig
+nmt = 5;
+nconfig = 100;
 fname = "mtlengths.txt";
-mtlengths = readmatrix(fname)'/domlenreal;
+fmtstr = [strtrim(repmat('%-12.6f ',1,nmt)),'\n'];
+mtlenfile = fopen(fname,'r');
+data = textscan(mtlenfile,fmtstr,1000);
+mtlengths = cat(2,data{:})'/domlenreal;
 %% calculate MFPT
 tic
 
@@ -53,3 +58,7 @@ for trc = 1:size(mtlengths,2)
 end
 mfpt = mfpt*tau; % convert MFPT to real units
 toc
+
+%% histogram mfpt over all microtubule configurations
+hist(mfpt,20)
+avgmfpt = mean(mfpt)
