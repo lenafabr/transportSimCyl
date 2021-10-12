@@ -85,4 +85,4 @@ MTLENFILE mtlengths.txt
 # print simulation status to console
 # -1 prints a total of 10 updates
 # can be change to print more or less frequently
-PRINTEVERY 100
+PRINTEVERY 1000
